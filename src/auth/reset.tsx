@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import '../styles/reset.css';
-const API_URL = import.meta.env.VITE_API_URL;
+ const API_URL = import.meta.env.VITE_API_URL;
 const ResetPassword: React.FC = () => {
   const [otp, setOtp] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
@@ -33,7 +33,7 @@ const ResetPassword: React.FC = () => {
     setMessage('');
 
     try {
-      const response = await fetch(`${API_URL}/verify-otp`, {
+      const response = await fetch(`${API_URL}/api/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp }),
@@ -75,7 +75,7 @@ const ResetPassword: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${API_URL}/reset-password`,  {
+      const response = await fetch(`${API_URL}/api/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp, newPassword }),
@@ -109,7 +109,7 @@ const ResetPassword: React.FC = () => {
     setMessage('');
 
     try {
-      const response = await fetch(`${API_URL}/forgot-password`, {
+      const response = await fetch(`${API_URL}/api/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

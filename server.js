@@ -429,7 +429,7 @@ app.get('/api/hostels', authenticateToken, async (req, res) => {
 // Password Reset Routes
 
 // Forgot Password - Send OTP
-app.post('/forgot-password', async (req, res) => {
+app.post('/api/forgot-password', async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -488,7 +488,7 @@ app.post('/forgot-password', async (req, res) => {
 });
 
 // Verify OTP endpoint
-app.post('/verify-otp', async (req, res) => {
+app.post('/api/verify-otp', async (req, res) => {
   try {
     const { email, otp } = req.body;
 
@@ -521,7 +521,7 @@ app.post('/verify-otp', async (req, res) => {
 });
 
 // Verify OTP and Reset Password
-app.post('/reset-password', async (req, res) => {
+app.post('/api/reset-password', async (req, res) => {
   try {
     const { email, otp, newPassword } = req.body;
 
@@ -590,12 +590,9 @@ app.use('/uploads', express.static('uploads'));
 // Serve React build
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Catch-all to handle React Router paths (only for GET requests)
-app.get('*', (req, res) => {
-  // Only serve index.html for non-API routes
-  if (!req.path.startsWith('/api/')) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-  }
+// Catch-all to handle React Router paths
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // Error handling middleware
