@@ -27,6 +27,34 @@ const ResetPassword: React.FC = () => {
     }
   }, [location, navigate]);
 
+
+  const handleResendOtp = async () => {
+    setIsLoading(true);
+    setMessage('');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        showAlert("New OTP sent to your email!", "success");
+      } else {
+        showAlert(data.message || "Failed to resend OTP. Please try again.", "error");
+      }
+    } catch (error) {
+      console.error('Resend OTP error:', error);
+      showAlert("Server error. Please try again.", "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
   const handleVerifyOtp = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -104,31 +132,7 @@ const ResetPassword: React.FC = () => {
     }
   };
 
-  const handleResendOtp = async () => {
-    setIsLoading(true);
-    setMessage('');
-
-    try {
-      const response = await fetch(`${API_URL}/api/forgot-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        showAlert("New OTP sent to your email!", "success");
-      } else {
-        showAlert(data.message || "Failed to resend OTP. Please try again.", "error");
-      }
-    } catch (error) {
-      console.error('Resend OTP error:', error);
-      showAlert("Server error. Please try again.", "error");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  
 
   // Custom Alert Function (same as in forget-password)
   function showAlert(message: string, type: "success" | "error" = "success") {
