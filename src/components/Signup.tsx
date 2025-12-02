@@ -3,6 +3,11 @@ import type { FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import '../styles/signup.css';
+import bg1 from '../assets/hostle1.jpg';
+import bg2 from '../assets/hostle2.jpg';
+import bg3 from '../assets/hostle3.jpg';
+import bg4 from '../assets/hostle4.jpg';
+import bg5 from '../assets/hostle5.jpg';
 
 
 
@@ -108,13 +113,20 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       
       {/* Animated Background Images */}
-      <div className="login-background">
-        <div className="background-slide"></div>
-        <div className="background-slide"></div>
-        <div className="background-slide"></div>
-        <div className="background-slide"></div>
-        <div className="background-slide"></div>
-      </div>
+   <div className="login-background">
+  {[bg1, bg2, bg3, bg4, bg5].map((bg, i) => (
+    <div
+      key={i}
+      className="background-slide"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${bg})`,
+        animationDelay: `${i * 6}s`  // stagger fade
+      }}
+    />
+  ))}
+</div>
+
+
 
       {/* Login Container */}
       <div className="signup-container">

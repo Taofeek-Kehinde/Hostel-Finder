@@ -41,39 +41,16 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
-  animation: backgroundFade 30s infinite;
+  animation: fade 30s infinite;
+  animation-fill-mode: forwards;
 }
 
-
-.background-slide:nth-child(1) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('/src/assets/hostle\ \(2\).jpg');
-    animation-delay: 0s;
+/* Fade animation for each slide */
+@keyframes fade {
+  0%, 16% { opacity: 1; }
+  20%, 100% { opacity: 0; }
 }
 
-.background-slide:nth-child(2) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-       url('/src/assets/hostle\ \(3\).jpg');
-    animation-delay: 6s;
-}
-
-.background-slide:nth-child(3) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-       url('/src/assets/hostle\ \(5\).jpg');
-    animation-delay: 12s;
-}
-
-.background-slide:nth-child(4) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-       url('/src/assets/hostle\ \(6\).jpg');
-    animation-delay: 18s;
-}
-
-.background-slide:nth-child(5) {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-       url('/src/assets/hostle\ \(1\).jpg');
-    animation-delay: 24s;
-}
 
 /* Login Container */
 .signup-container {
