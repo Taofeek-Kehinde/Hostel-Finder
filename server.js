@@ -16,6 +16,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(cors({ origin: '*' }));
+
 // Middleware
 app.use(express.json());
 app.use(cors());
@@ -589,9 +590,12 @@ app.use('/uploads', express.static('uploads'));
 // Serve React build
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Catch-all to handle React Router paths
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// Catch-all to handle React Router paths (only for GET requests)
+app.get('*', (req, res) => {
+  // Only serve index.html for non-API routes
+  if (!req.path.startsWith('/api/')) {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  }
 });
 
 // Error handling middleware
