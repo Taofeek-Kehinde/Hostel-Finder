@@ -1,0 +1,583 @@
+/* login.css */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: auto;
+}
+
+/* Animated Background Slideshow */
+.login-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    animation: backgroundSlide 30s infinite ease-in-out;
+}
+
+.background-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: backgroundFade 30s infinite;
+}
+
+.background-slide:nth-child(1) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('/src/assets/hostle\ \(2\).jpg');
+    animation-delay: 0s;
+}
+
+.background-slide:nth-child(2) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+       url('/src/assets/hostle\ \(3\).jpg');
+    animation-delay: 6s;
+}
+
+.background-slide:nth-child(3) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+       url('/src/assets/hostle\ \(5\).jpg');
+    animation-delay: 12s;
+}
+
+.background-slide:nth-child(4) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+       url('/src/assets/hostle\ \(6\).jpg');
+    animation-delay: 18s;
+}
+
+.background-slide:nth-child(5) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+       url('/src/assets/hostle\ \(1\).jpg');
+    animation-delay: 24s;
+}
+
+/* Login Container */
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem 3rem;
+    border-radius: 20px;
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 95%;
+    max-width: 500px;
+    min-width: 300px;
+    animation: containerSlideInMobile 0.8s ease-out;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.1),
+        0 0 10px rgba(52, 152, 219, 0.3);
+    animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+
+input {
+    color: black;
+}
+
+/* Form Styles */
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* All form groups are full width by default */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.login-container label {
+    font-weight: 600;
+    color: #34495e;
+    font-size: 0.95rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.login-container input,
+.login-container select {
+    padding: 1rem 1.2rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.login-container input:focus,
+.login-container select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow:
+        0 0 0 3px rgba(52, 152, 219, 0.2),
+        inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.login-container input:hover,
+.login-container select:hover {
+    border-color: #bdc3c7;
+    transform: translateY(-1px);
+}
+
+/* Checkbox Styles */
+.login-container input[type="checkbox"] {
+    width: auto;
+    transform: scale(1.2);
+    margin-right: 0.5rem;
+    box-shadow: none;
+}
+
+.login-container input[type="checkbox"]:focus {
+    transform: scale(1.2) translateY(-1px);
+}
+
+.checkbox-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+/* Button Styles */
+.login-container button {
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    box-shadow:
+        0 8px 20px rgba(52, 152, 219, 0.4),
+        0 4px 10px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+.login-container button:enabled:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 25px rgba(52, 152, 219, 0.5),
+        0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-container button:enabled:active {
+    transform: translateY(-1px);
+    box-shadow:
+        0 6px 15px rgba(52, 152, 219, 0.4),
+        0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-container button:disabled {
+    background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.7;
+}
+
+/* Login Links */
+.login-links {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.login-links p {
+    margin-bottom: 0.8rem;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.login-container a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.login-container a:hover {
+    color: #2980b9;
+    text-shadow:
+        0 0 8px rgba(52, 152, 219, 0.5),
+        1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes backgroundFade {
+
+    0%,
+    16% {
+        opacity: 1;
+    }
+
+    20%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes backgroundSlide {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes containerSlideInMobile {
+  0% {
+    opacity: 0;
+    /* transform: translate(-50%, -100%); */
+  }
+  100% {
+    opacity: 1;
+    /* transform: translate(-50%, -50%); */
+  }
+}
+
+
+
+@keyframes textGlow {
+    0% {
+        text-shadow:
+            2px 2px 4px rgba(0, 0, 0, 0.1),
+            0 0 10px rgba(52, 152, 219, 0.3);
+    }
+
+    100% {
+        text-shadow:
+            2px 2px 4px rgba(0, 0, 0, 0.1),
+            0 0 20px rgba(52, 152, 219, 0.6),
+            0 0 30px rgba(52, 152, 219, 0.4);
+    }
+}
+
+/* Responsive Design */
+
+/* Large Tablets and Small Laptops */
+@media (max-width: 1024px) {
+    .login-container {
+        padding: 2rem 2.5rem;
+        max-width: 450px;
+    }
+
+    .login-container h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 2rem;
+        max-width: 400px;
+        margin: 1rem;
+        animation: containerSlideInMobile 0.8s ease-out;
+    }
+
+    .login-container h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .login-container input {
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .login-container button {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 1.5rem;
+        max-width: 350px;
+        border-radius: 15px;
+        margin: 0.5rem;
+    }
+
+    .login-container h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .login-container form {
+        gap: 1rem;
+    }
+
+    .login-container input {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .login-container button {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .checkbox-label {
+        font-size: 0.85rem;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 375px) {
+    .login-container {
+        padding: 1.2rem;
+        max-width: 320px;
+    }
+
+    .login-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .login-container label {
+        font-size: 0.9rem;
+    }
+
+    .login-container input {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Smart Watches and Very Small Screens */
+@media (max-width: 320px) {
+    .login-container {
+        padding: 1rem;
+        max-width: 280px;
+        border-radius: 12px;
+    }
+
+    .login-container h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .login-container label {
+        font-size: 0.85rem;
+    }
+
+    .login-container input {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .login-container button {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .login-links p {
+        font-size: 0.85rem;
+    }
+
+    .checkbox-label {
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape Orientation for Mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+    .login-container {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 1rem auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    body {
+        overflow: auto;
+    }
+}
+
+/* High DPI Screens */
+@media (min-resolution: 192dpi) {
+    .login-container {
+        border-width: 0.5px;
+    }
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+    .login-background,
+    .background-slide,
+    .login-container,
+    .login-container h2,
+    .login-container input,
+    .login-container button {
+        animation: none;
+        transition: none;
+    }
+
+    .login-container {
+        animation: containerSlideIn 0.3s ease-out;
+    }
+}
+
+/* Form Validation Styles */
+.login-container input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.login-container input:valid:not(:focus):not(:placeholder-shown) {
+    border-color: #27ae60;
+}
+
+/* Icon Styles */
+.login-container h2 i {
+    margin-right: 0.5rem;
+    color: #3498db;
+}
+
+.login-container label i {
+    margin-right: 0.5rem;
+    color: #3498db;
+    width: 16px;
+    text-align: center;
+}
+
+/* Input with Icon */
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7f8c8d;
+    transition: all 0.3s ease;
+}
+
+.login-container input:focus + .input-icon {
+    color: #3498db;
+}
+
+.login-container input:hover + .input-icon {
+    color: #3498db;
+}
+
+/* Button Icon */
+.login-container button i {
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.login-container button:enabled:hover i {
+    transform: translateX(2px);
+}
+
+/* Checkbox Icon */
+.checkbox-group i {
+    color: #3498db;
+    margin-right: 0.5rem;
+}
+
+/* Links Icon */
+.login-links a i {
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.login-links a:hover i {
+    transform: scale(1.1);
+    color: #2980b9;
+}
+
+/* Responsive adjustments for icons */
+@media (max-width: 768px) {
+    .input-icon {
+        right: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .login-container label i {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-icon {
+        right: 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .login-container label i {
+        font-size: 0.85rem;
+    }
+}

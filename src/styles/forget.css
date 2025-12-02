@@ -1,0 +1,631 @@
+/* forget-password.css */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: auto;
+}
+
+/* Animated Background Slideshow */
+.forget-password-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    animation: backgroundSlide 30s infinite ease-in-out;
+}
+
+.background-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: backgroundFade 30s infinite;
+}
+
+.background-slide:nth-child(1) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('/src/assets/hostle\ \(2\).jpg');
+    animation-delay: 0s;
+}
+
+.background-slide:nth-child(2) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('/src/assets/hostle\ \(3\).jpg');
+    animation-delay: 6s;
+}
+
+.background-slide:nth-child(3) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('/src/assets/hostle\ \(5\).jpg');
+    animation-delay: 12s;
+}
+
+.background-slide:nth-child(4) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('/src/assets/hostle\ \(6\).jpg');
+    animation-delay: 18s;
+}
+
+.background-slide:nth-child(5) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('/src/assets/hostle\ \(1\).jpg');
+    animation-delay: 24s;
+}
+
+/* Forget Password Container */
+.forget-password-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem 3rem;
+    border-radius: 20px;
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 95%;
+    max-width: 500px;
+    min-width: 300px;
+    animation: containerSlideIn 0.8s ease-out;
+}
+
+.forget-password-container h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.1),
+        0 0 10px rgba(52, 152, 219, 0.3);
+    animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+.forget-password-description {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    animation: fadeIn 0.5s ease-out;
+}
+
+input {
+    color: black;
+}
+
+/* Form Styles */
+.forget-password-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.forget-password-container label {
+    font-weight: 600;
+    color: #34495e;
+    font-size: 0.95rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.forget-password-container input {
+    padding: 1rem 1.2rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.forget-password-container input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow:
+        0 0 0 3px rgba(52, 152, 219, 0.2),
+        inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.forget-password-container input:hover {
+    border-color: #bdc3c7;
+    transform: translateY(-1px);
+}
+
+input {
+    color: #0A0A0A;
+}
+
+/* Reset Button Styles */
+.reset-button {
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    box-shadow:
+        0 8px 20px rgba(52, 152, 219, 0.4),
+        0 4px 10px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    position: relative;
+}
+
+.reset-button:enabled:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 25px rgba(52, 152, 219, 0.5),
+        0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.reset-button:enabled:active {
+    transform: translateY(-1px);
+    box-shadow:
+        0 6px 15px rgba(52, 152, 219, 0.4),
+        0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.reset-button:disabled {
+    background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.7;
+}
+
+input {
+    color: #0A0A0A;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* Message Styles */
+.message {
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    animation: slideDown 0.3s ease-out;
+}
+
+.message-success {
+    background: rgba(46, 204, 113, 0.1);
+    color: #27ae60;
+    border: 1px solid #27ae60;
+}
+
+.message-error {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+/* Forget Password Links */
+.forget-password-links {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.forget-password-links p {
+    margin-bottom: 0.8rem;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.forget-password-container a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.forget-password-container a:hover {
+    color: #2980b9;
+    text-shadow:
+        0 0 8px rgba(52, 152, 219, 0.5),
+        1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes backgroundFade {
+
+    0%,
+    16% {
+        opacity: 1;
+    }
+
+    20%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes backgroundSlide {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes containerSlideIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow:
+            2px 2px 4px rgba(0, 0, 0, 0.1),
+            0 0 10px rgba(52, 152, 219, 0.3);
+    }
+
+    100% {
+        text-shadow:
+            2px 2px 4px rgba(0, 0, 0, 0.1),
+            0 0 20px rgba(52, 152, 219, 0.6),
+            0 0 30px rgba(52, 152, 219, 0.4);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+        max-height: 0;
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 100px;
+    }
+}
+
+/* Loading Animation */
+@keyframes fa-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.fa-spin {
+    animation: fa-spin 1s infinite linear;
+}
+
+/* Input with Icon */
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7f8c8d;
+    transition: all 0.3s ease;
+}
+
+.forget-password-container input:focus+.input-icon {
+    color: #3498db;
+}
+
+.forget-password-container input:hover+.input-icon {
+    color: #3498db;
+}
+
+/* Button Icon */
+.reset-button i {
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.reset-button:enabled:hover i {
+    transform: translateX(2px);
+}
+
+/* Links Icon */
+.forget-password-links a i {
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.forget-password-links a:hover i {
+    transform: scale(1.1);
+    color: #2980b9;
+}
+
+/* Responsive Design */
+
+/* Large Tablets and Small Laptops */
+@media (max-width: 1024px) {
+    .forget-password-container {
+        padding: 2rem 2.5rem;
+        max-width: 450px;
+    }
+
+    .forget-password-container h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    .forget-password-container {
+        padding: 2rem;
+        max-width: 400px;
+        margin: 1rem;
+    }
+
+    .forget-password-container h2 {
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .forget-password-description {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .forget-password-container input {
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .reset-button {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+    .forget-password-container {
+        padding: 1.5rem;
+        max-width: 350px;
+        border-radius: 15px;
+        margin: 0.5rem;
+    }
+
+    .forget-password-container h2 {
+        font-size: 1.6rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .forget-password-description {
+        font-size: 0.85rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .forget-password-container form {
+        gap: 1rem;
+    }
+
+    .forget-password-container input {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .reset-button {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .message {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 375px) {
+    .forget-password-container {
+        padding: 1.2rem;
+        max-width: 320px;
+    }
+
+    .forget-password-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .forget-password-container label {
+        font-size: 0.9rem;
+    }
+
+    .forget-password-container input {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+    }
+
+    .forget-password-description {
+        font-size: 0.8rem;
+    }
+}
+
+/* Smart Watches and Very Small Screens */
+@media (max-width: 320px) {
+    .forget-password-container {
+        padding: 1rem;
+        max-width: 280px;
+        border-radius: 12px;
+    }
+
+    .forget-password-container h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .forget-password-container label {
+        font-size: 0.85rem;
+    }
+
+    .forget-password-container input {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .reset-button {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .forget-password-links p {
+        font-size: 0.85rem;
+    }
+
+    .forget-password-description {
+        font-size: 0.75rem;
+    }
+}
+
+/* Landscape Orientation for Mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+    .forget-password-container {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 1rem auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    body {
+        overflow: auto;
+    }
+}
+
+/* High DPI Screens */
+@media (min-resolution: 192dpi) {
+    .forget-password-container {
+        border-width: 0.5px;
+    }
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+    .forget-password-background,
+    .background-slide,
+    .forget-password-container,
+    .forget-password-container h2,
+    .forget-password-container input,
+    .reset-button {
+        animation: none;
+        transition: none;
+    }
+
+    .forget-password-container {
+        animation: containerSlideIn 0.3s ease-out;
+    }
+}
+
+/* Form Validation Styles */
+.forget-password-container input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.forget-password-container input:valid:not(:focus):not(:placeholder-shown) {
+    border-color: #27ae60;
+}
+
+.forget-password-container input:disabled {
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Icon Responsive Adjustments */
+@media (max-width: 768px) {
+    .input-icon {
+        right: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .forget-password-container label i {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-icon {
+        right: 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .forget-password-container label i {
+        font-size: 0.85rem;
+    }
+}
