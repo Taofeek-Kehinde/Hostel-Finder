@@ -4,11 +4,6 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import '../styles/reset.css';
 
 const ResetPassword: React.FC = () => {
-  // Eye toggle states
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  // Existing states
   const [otp, setOtp] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -16,16 +11,18 @@ const ResetPassword: React.FC = () => {
   const [, setMessage] = useState<string>('');
   const [step, setStep] = useState<'verify' | 'reset'>('verify');
   const [email, setEmail] = useState<string>('');
-
+  
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    // Get email from location state or localStorage
     const storedEmail = location.state?.email || localStorage.getItem('resetEmail');
     if (storedEmail) {
       setEmail(storedEmail);
       localStorage.setItem('resetEmail', storedEmail);
     } else {
+      // If no email found, redirect back to forget password
       navigate('/forget-password');
     }
   }, [location, navigate]);
@@ -63,12 +60,14 @@ const ResetPassword: React.FC = () => {
     setIsLoading(true);
     setMessage('');
 
+    // Validate passwords match
     if (newPassword !== confirmPassword) {
       showAlert("Passwords do not match!", "error");
       setIsLoading(false);
       return;
     }
 
+    // Validate password strength
     if (newPassword.length < 6) {
       showAlert("Password must be at least 6 characters long!", "error");
       setIsLoading(false);
@@ -86,8 +85,11 @@ const ResetPassword: React.FC = () => {
 
       if (data.success) {
         showAlert("Password reset successfully!", "success");
+        
+        // Clear stored email
         localStorage.removeItem('resetEmail');
-
+        
+        // Redirect to login page
         setTimeout(() => {
           navigate('/login');
         }, 2000);
@@ -105,7 +107,7 @@ const ResetPassword: React.FC = () => {
   const handleResendOtp = async () => {
     setIsLoading(true);
     setMessage('');
-  
+
     try {
       const response = await fetch('http://localhost:5000/api/forgot-password', {
         method: 'POST',
@@ -128,6 +130,7 @@ const ResetPassword: React.FC = () => {
     }
   };
 
+  // Custom Alert Function (same as in forget-password)
   function showAlert(message: string, type: "success" | "error" = "success") {
     const alertBox = document.createElement("div");
     alertBox.textContent = message;
@@ -162,6 +165,7 @@ const ResetPassword: React.FC = () => {
     }, 3000);
   }
 
+  // OTP input validation - only numbers and max 6 digits
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, '').slice(0, 6);
     setOtp(value);
@@ -172,28 +176,10 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="reset-password-page">
+      {/* Add Font Awesome CDN */}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       
-      {/* Add internal CSS */}
-      <style>{`
-        .eye-toggle {
-          position: absolute;
-          right: 15px;
-          top: 50%;
-          transform: translateY(-50%);
-          cursor: pointer;
-          font-size: 18px;
-          color: #555;
-        }
-        .input-with-icon {
-          position: relative;
-        }
-      `}</style>
-
-      {/* Font Awesome */}
-      <link rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-      {/* Background */}
+      {/* Animated Background Images */}
       <div className="reset-password-background">
         <div className="background-slide"></div>
         <div className="background-slide"></div>
@@ -202,24 +188,25 @@ const ResetPassword: React.FC = () => {
         <div className="background-slide"></div>
       </div>
 
-      {/* Main Container */}
+      {/* Reset Password Container */}
       <div className="reset-password-container">
         <h2>
           <i className="fas fa-key"></i> {step === 'verify' ? 'Verify OTP' : 'Reset Password'}
         </h2>
-
+        
         <p className="reset-password-description">
-          {step === 'verify'
+          {step === 'verify' 
             ? 'Enter the 6-digit OTP sent to your email address.'
             : 'Enter your new password and confirm it.'}
         </p>
 
         {step === 'verify' ? (
           <form onSubmit={handleVerifyOtp}>
-            
             {/* OTP Input */}
             <div className="form-group">
-              <label><i className="fas fa-shield-alt"></i> 6-Digit OTP:</label>
+              <label>
+                <i className="fas fa-shield-alt"></i> 6-Digit OTP:
+              </label>
               <div className="input-with-icon">
                 <input
                   type="text"
@@ -229,42 +216,56 @@ const ResetPassword: React.FC = () => {
                   placeholder="Enter 6-digit OTP"
                   disabled={isLoading}
                   maxLength={6}
+                  pattern="\d{6}"
+                  inputMode="numeric"
                 />
                 <i className="fas fa-shield-alt input-icon"></i>
+              </div>
+              <div className="otp-hint">
+                Enter the 6-digit code sent to {email}
               </div>
             </div>
 
             <button 
-              type="submit"
+              type="submit" 
               disabled={!isOtpValid || isLoading}
               className="verify-button"
             >
-              {isLoading ? <><i className="fas fa-spinner fa-spin"></i> Verifying...</> 
-                          : <><i className="fas fa-check-circle"></i> Verify OTP</>}
+              {isLoading ? (
+                <>
+                  <i className="fas fa-spinner fa-spin"></i> Verifying...
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-check-circle"></i> Verify OTP
+                </>
+              )}
             </button>
 
             <div className="resend-otp">
               <p>
                 Didn't receive the code?{' '}
                 <button 
-                  type="button"
+                  type="button" 
                   onClick={handleResendOtp}
                   disabled={isLoading}
                   className="resend-button"
-                >Resend OTP</button>
+                >
+                  Resend OTP
+                </button>
               </p>
             </div>
           </form>
         ) : (
           <form onSubmit={handleResetPassword}>
-            
-            {/* New Password */}
+            {/* New Password Input */}
             <div className="form-group">
-              <label><i className="fas fa-lock"></i> New Password:</label>
-
+              <label>
+                <i className="fas fa-lock"></i> New Password:
+              </label>
               <div className="input-with-icon">
                 <input
-                  type={showNewPassword ? "text" : "password"}
+                  type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
@@ -272,20 +273,18 @@ const ResetPassword: React.FC = () => {
                   disabled={isLoading}
                   minLength={6}
                 />
-                <i
-                  className={`fas ${showNewPassword ? "fa-eye-slash" : "fa-eye"} eye-toggle`}
-                  onClick={() => setShowNewPassword(!showNewPassword)}
-                ></i>
+                <i className="fas fa-lock input-icon"></i>
               </div>
             </div>
 
-            {/* Confirm Password */}
+            {/* Confirm Password Input */}
             <div className="form-group">
-              <label><i className="fas fa-lock"></i> Confirm Password:</label>
-
+              <label>
+                <i className="fas fa-lock"></i> Confirm Password:
+              </label>
               <div className="input-with-icon">
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
@@ -293,12 +292,8 @@ const ResetPassword: React.FC = () => {
                   disabled={isLoading}
                   minLength={6}
                 />
-                <i
-                  className={`fas ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"} eye-toggle`}
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                ></i>
+                <i className="fas fa-lock input-icon"></i>
               </div>
-
               {confirmPassword && newPassword !== confirmPassword && (
                 <div className="password-error">
                   <i className="fas fa-exclamation-circle"></i> Passwords do not match
@@ -307,23 +302,33 @@ const ResetPassword: React.FC = () => {
             </div>
 
             <button 
-              type="submit"
+              type="submit" 
               disabled={!isPasswordValid || isLoading}
               className="reset-button"
             >
-              {isLoading ? <><i className="fas fa-spinner fa-spin"></i> Resetting...</> 
-                          : <><i className="fas fa-sync-alt"></i> Reset Password</>}
+              {isLoading ? (
+                <>
+                  <i className="fas fa-spinner fa-spin"></i> Resetting...
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-sync-alt"></i> Reset Password
+                </>
+              )}
             </button>
           </form>
         )}
 
         <div className="reset-password-links">
           <p>
-            <Link to="/login"><i className="fas fa-arrow-left"></i> Back to Login</Link>
+            <Link to="/login">
+              <i className="fas fa-arrow-left"></i> Back to Login
+            </Link>
           </p>
           <p>
-            Remember your password?{' '}
-            <Link to="/login"><i className="fas fa-sign-in-alt"></i> Sign In</Link>
+            Remember your password? <Link to="/login">
+              <i className="fas fa-sign-in-alt"></i> Sign In
+            </Link>
           </p>
         </div>
       </div>
