@@ -35,21 +35,21 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
       return;
     }
 
+    const API_URL = import.meta.env.VITE_API_URL;
+    
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fullName,
-          email,
-          phone,
-          password,
-          confirmPassword,
-          role,
-        }),
-      });
+     const response = await fetch(`${API_URL}/api/signup`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    fullName,
+    email,
+    phone,
+    password,
+    confirmPassword,
+    role,
+  }),
+});
 
       const data = await response.json();
 

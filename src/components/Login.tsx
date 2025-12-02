@@ -15,35 +15,36 @@ const Login: React.FC = () => {
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+     const API_URL = import.meta.env.VITE_API_URL;
 
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, phone, password }),
-      });
+    const response = await fetch(`${API_URL}/api/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, phone, password }),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (data.success) {
-        showAlert('Login successful!', 'success');
+    if (data.success) {
+      showAlert('Login successful!', 'success');
 
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
 
-        setTimeout(() => {
-          navigate('/home');
-        }, 1000);
-      } else {
-        showAlert(data.message || 'Login failed!', 'error');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      showAlert('An error occurred during login. Please try again.', 'error');
-    } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        navigate('/home');
+      }, 1000);
+    } else {
+      showAlert(data.message || 'Login failed!', 'error');
     }
-  };
+  } catch (error) {
+    console.error('Login error:', error);
+    showAlert('An error occurred during login. Please try again.', 'error');
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const isFormValid = email && password;
 
