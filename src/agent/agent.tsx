@@ -92,14 +92,14 @@ const Agent: React.FC = () => {
     }));
   }, []);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const fetchAgentAds = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/agent/ads', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(`${API_URL}/api/agent/ads`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      })
 
       if (response.ok) {
         const data = await response.json();
@@ -112,7 +112,7 @@ const Agent: React.FC = () => {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    
+
     if (files.length + imageFiles.length > 5) {
       alert('You can only upload up to 5 images');
       return;
@@ -177,22 +177,20 @@ const Agent: React.FC = () => {
         formDataToSend.append('images', file);
       });
 
-      const url = editingAd 
-        ? `http://localhost:5000/api/agent/ads/${editingAd._id}`
-        : 'http://localhost:5000/api/agent/ads';
+      const url = editingAd
+        ? `${API_URL}/api/agent/ads/${editingAd._id}`
+        : `${API_URL}/api/agent/ads`;
 
       const response = await fetch(url, {
         method: editingAd ? 'PUT' : 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers: { 'Authorization': `Bearer ${token}` },
         body: formDataToSend,
       });
 
       if (response.ok) {
         // const result = await response.json();
         showAlert(editingAd ? 'Ad updated successfully!' : 'Ad created successfully!');
-        
+
         // Reset form
         setFormData({
           name: '',
@@ -216,7 +214,7 @@ const Agent: React.FC = () => {
         });
         setImageFiles([]);
         setEditingAd(null);
-        
+
         // Refresh ads list
         fetchAgentAds();
         setActiveTab('profile');
@@ -244,11 +242,9 @@ const Agent: React.FC = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/agent/ads/${adId}`, {
+      const response = await fetch(`${API_URL}/api/agent/ads/${adId}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers: { 'Authorization': `Bearer ${token}` },
       });
 
       if (response.ok) {
@@ -332,14 +328,14 @@ const Agent: React.FC = () => {
             Agent Dashboard
           </h1>
           <nav className="agent-nav">
-            <button 
+            <button
               className="nav-btn"
               onClick={() => navigate('/home')}
             >
               <i className="fas fa-home"></i>
               Home
             </button>
-            <button 
+            <button
               className="nav-btn logout-btn"
               onClick={() => {
                 localStorage.removeItem('token');
@@ -358,14 +354,14 @@ const Agent: React.FC = () => {
         <div className="container">
           {/* Tabs */}
           <div className="tabs">
-            <button 
+            <button
               className={`tab-btn ${activeTab === 'create' ? 'active' : ''}`}
               onClick={() => setActiveTab('create')}
             >
               <i className="fas fa-plus"></i>
               {editingAd ? 'Edit Ad' : 'Create New Ad'}
             </button>
-            <button 
+            <button
               className={`tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
               onClick={() => setActiveTab('profile')}
             >
@@ -378,7 +374,7 @@ const Agent: React.FC = () => {
           {activeTab === 'create' && (
             <div className="form-section">
               <h2>{editingAd ? 'Edit Hostel Ad' : 'Create New Hostel Ad'}</h2>
-              
+
               <form onSubmit={handleSubmit} className="ad-form">
                 {/* Basic Information */}
                 <div className="form-grid">
@@ -453,8 +449,8 @@ const Agent: React.FC = () => {
                     <input
                       type="tel"
                       value={formData.contact.phone}
-                      onChange={(e) => setFormData(prev => ({ 
-                        ...prev, 
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
                         contact: { ...prev.contact, phone: e.target.value }
                       }))}
                       placeholder="Your phone number"
@@ -467,8 +463,8 @@ const Agent: React.FC = () => {
                     <input
                       type="tel"
                       value={formData.contact.whatsapp}
-                      onChange={(e) => setFormData(prev => ({ 
-                        ...prev, 
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
                         contact: { ...prev.contact, whatsapp: e.target.value }
                       }))}
                       placeholder="WhatsApp number (optional)"
@@ -480,8 +476,8 @@ const Agent: React.FC = () => {
                     <input
                       type="email"
                       value={formData.contact.email}
-                      onChange={(e) => setFormData(prev => ({ 
-                        ...prev, 
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
                         contact: { ...prev.contact, email: e.target.value }
                       }))}
                       placeholder="Your email address"
@@ -494,8 +490,8 @@ const Agent: React.FC = () => {
                     <input
                       type="text"
                       value={formData.contact.address}
-                      onChange={(e) => setFormData(prev => ({ 
-                        ...prev, 
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
                         contact: { ...prev.contact, address: e.target.value }
                       }))}
                       placeholder="Complete address for visitors"
@@ -555,13 +551,13 @@ const Agent: React.FC = () => {
                       <small>Maximum 5 images allowed</small>
                     </label>
                   </div>
-                  
+
                   <div className="image-preview-grid">
                     {formData.images.map((image, index) => (
                       <div key={index} className="image-preview">
                         <img src={image} alt={`Preview ${index + 1}`} />
-                        <button 
-                          type="button" 
+                        <button
+                          type="button"
                           onClick={() => removeImage(index)}
                           className="remove-image-btn"
                         >
@@ -606,13 +602,13 @@ const Agent: React.FC = () => {
           {activeTab === 'profile' && (
             <div className="profile-section">
               <h2>My Hostel Ads</h2>
-              
+
               {ads.length === 0 ? (
                 <div className="no-ads">
                   <i className="fas fa-home no-ads-icon"></i>
                   <h3>No Ads Created Yet</h3>
                   <p>Start by creating your first hostel advertisement to reach students.</p>
-                  <button 
+                  <button
                     onClick={() => setActiveTab('create')}
                     className="create-first-ad-btn"
                   >
@@ -634,7 +630,7 @@ const Agent: React.FC = () => {
                         )}
                         <div className="ad-price">{ad.price}</div>
                       </div>
-                      
+
                       <div className="ad-content">
                         <h3 className="ad-name">{ad.name}</h3>
                         <p className="ad-location">
@@ -645,7 +641,7 @@ const Agent: React.FC = () => {
                           <i className="fas fa-university"></i>
                           {ad.school}
                         </p>
-                        
+
                         <div className="ad-amenities">
                           {ad.amenities.slice(0, 3).map((amenity, index) => (
                             <span key={index} className="amenity-tag small">
@@ -660,14 +656,14 @@ const Agent: React.FC = () => {
                         </div>
 
                         <div className="ad-actions">
-                          <button 
+                          <button
                             onClick={() => handleEdit(ad)}
                             className="edit-btn"
                           >
                             <i className="fas fa-edit"></i>
                             Edit
                           </button>
-                          <button 
+                          <button
                             onClick={() => handleDelete(ad._id!)}
                             className="delete-btn"
                           >
