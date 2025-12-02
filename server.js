@@ -429,7 +429,7 @@ app.get('/api/hostels', authenticateToken, async (req, res) => {
 // Password Reset Routes
 
 // Forgot Password - Send OTP
-app.post('/api/forgot-password', async (req, res) => {
+app.post('/forgot-password', async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -488,7 +488,7 @@ app.post('/api/forgot-password', async (req, res) => {
 });
 
 // Verify OTP endpoint
-app.post('/api/verify-otp', async (req, res) => {
+app.post('/verify-otp', async (req, res) => {
   try {
     const { email, otp } = req.body;
 
@@ -521,7 +521,7 @@ app.post('/api/verify-otp', async (req, res) => {
 });
 
 // Verify OTP and Reset Password
-app.post('/api/reset-password', async (req, res) => {
+app.post('/reset-password', async (req, res) => {
   try {
     const { email, otp, newPassword } = req.body;
 

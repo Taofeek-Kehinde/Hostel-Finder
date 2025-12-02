@@ -33,7 +33,7 @@ const ResetPassword: React.FC = () => {
     setMessage('');
 
     try {
-      const response = await fetch(`${API_URL}/api/verify-otp`, {
+      const response = await fetch(`${API_URL}/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp }),
@@ -75,7 +75,7 @@ const ResetPassword: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${API_URL}/api/reset-password`,  {
+      const response = await fetch(`${API_URL}/reset-password`,  {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp, newPassword }),
@@ -109,7 +109,7 @@ const ResetPassword: React.FC = () => {
     setMessage('');
 
     try {
-      const response = await fetch(`${API_URL}/api/forgot-password`, {
+      const response = await fetch(`${API_URL}/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
