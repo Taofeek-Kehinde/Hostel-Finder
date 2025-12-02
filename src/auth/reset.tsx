@@ -108,7 +108,7 @@ const ResetPassword: React.FC = () => {
  const API_URL = import.meta.env.VITE_API_URL;
 
 try {
-  const response = await fetch(`${API_URL}/api/forgot-password`, {
+  const response = await fetch(`${API_URL}/api/reset-password`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email }),
